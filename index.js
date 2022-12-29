@@ -44,6 +44,21 @@ async function run() {
                 $set: {
                     task: task.task,
                     desc: task.desc,
+                    image: task.image,
+                }
+            }
+            const result = await tasksCollection.updateOne(filter, updatedTask, option);
+            res.send(result);
+        })
+
+        app.put('/completeTask/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const task = req.body;
+            const option = {upsert: true};
+            const updatedTask = {
+                $set: {
+                    completed: task.completed
                 }
             }
             const result = await tasksCollection.updateOne(filter, updatedTask, option);

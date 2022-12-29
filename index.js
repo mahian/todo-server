@@ -29,13 +29,15 @@ async function run() {
         })
 
         app.get('/completedTask', async (req, res) => {
-            const query = {completed: true}
+            const user = req.query.email;
+            const query = {completed: true, email: user};
             const tasks = await tasksCollection.find(query).toArray();
             res.send(tasks);
         })
 
         app.get('/uncompletedTask', async (req, res) => {
-            const query = {completed: false}
+            const user = req.query.email;
+            const query = {completed: false, email: user};
             const tasks = await tasksCollection.find(query).toArray();
             res.send(tasks);
         })

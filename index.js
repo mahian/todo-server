@@ -28,6 +28,18 @@ async function run() {
             res.send(tasks);
         })
 
+        app.get('/completedTask', async (req, res) => {
+            const query = {completed: true}
+            const tasks = await tasksCollection.find(query).toArray();
+            res.send(tasks);
+        })
+
+        app.get('/uncompletedTask', async (req, res) => {
+            const query = {completed: false}
+            const tasks = await tasksCollection.find(query).toArray();
+            res.send(tasks);
+        })
+
         app.get('/tasks/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
